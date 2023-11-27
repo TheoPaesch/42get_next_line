@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 12:02:36 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/27 13:51:40 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 14:07:52 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*newline_handeling(char *st_buffer)
 		return (free(temp), NULL);
 	while (st_buffer[i] && st_buffer[i] != '\0')
 		temp[j++] = st_buffer[i++];
+	free(st_buffer);
 	return (temp);
 }
 
