@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:59:43 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/25 17:14:06 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:45:42 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	go = ft_calloc ((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (go == NULL)
-		return (NULL);
+		return (free(go), NULL);
 	while (s1[i] != '\0')
 	{
 		go[i] = s1[i];

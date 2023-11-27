@@ -6,14 +6,14 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 12:01:04 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/25 14:43:29 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 13:30:37 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 
 # include <fcntl.h>
