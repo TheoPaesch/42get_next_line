@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 12:02:36 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/27 16:09:53 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:26:56 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*fusion(char *s1, char *s2)
 
 	haa = ft_strjoin(s1, s2);
 	if (!haa)
+		return (free(haa), free(s1), NULL);
+	if (!s1)
 		return (free(haa), free(s1), NULL);
 	free(s1);
 	return (haa);
@@ -40,8 +42,8 @@ char	*newline_handeling(char *st_buffer)
 	if (!st_buffer[i])
 		return (free(st_buffer), NULL);
 	temp = ft_calloc(((ft_strlen(st_buffer) - i) + 1), sizeof(char));
-	if (!temp)
-		return (NULL);
+	if (temp == NULL)
+		return (free(temp), NULL);
 	while (st_buffer[i] && st_buffer[i] != '\0')
 		temp[j++] = st_buffer[i++];
 	free(st_buffer);
@@ -61,8 +63,8 @@ char	*line_extraction(char *st_buffer)
 	if (st_buffer[i] == '\n')
 		i++;
 	temp = ft_calloc(i + 1, sizeof(char));
-	if (!temp)
-		return (NULL);
+	if (temp == NULL)
+		return (free(temp), NULL);
 	i = 0;
 	while (st_buffer[i] && st_buffer[i] != '\n')
 	{
@@ -83,7 +85,7 @@ char	*de_read_sandstorm(int fd, char *ret)
 	if (!ret)
 	{
 		ret = ft_calloc(1, 1);
-		if (!ret)
+		if (ret == NULL)
 			return (free(ret), NULL);
 	}
 	bytes_read = read(fd, read_input, BUFFER_SIZE);
@@ -97,6 +99,8 @@ char	*de_read_sandstorm(int fd, char *ret)
 			break ;
 		bytes_read = read(fd, read_input, BUFFER_SIZE);
 	}
+	if (bytes_read < 0)
+		return (NULL);
 	if (bytes_read <= 0 && ret[0] == '\0')
 		return (free(ret), NULL);
 	return (ret);

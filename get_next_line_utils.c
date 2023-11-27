@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:59:43 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/27 16:06:48 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:26:24 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*ft_calloc(size_t count, size_t size)
 	i = 0;
 	completesize = (count * size);
 	notastring = malloc(count * size);
-	if (!notastring)
-		return (NULL);
+	if (notastring == NULL)
+		return (free(notastring), NULL);
 	str = (char *)notastring;
 	if (!str)
 		return (NULL);
@@ -43,7 +43,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	i = 0;
 	go = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
-	if (!go)
+	if (go == NULL)
 		return (free(go), NULL);
 	while (s1[i] != '\0')
 	{
