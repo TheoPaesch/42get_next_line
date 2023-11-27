@@ -6,36 +6,29 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:59:43 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/27 13:45:42 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/11/27 16:06:48 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, int num)
-{
-	int		i;
-	char	*str;
-
-	str = s;
-	i = 0;
-	while (num > i)
-	{
-		str[i] = '\0';
-		i++;
-	}
-}
-
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*notastring;
 	size_t	completesize;
+	size_t	i;
+	char	*str;
 
+	i = 0;
 	completesize = (count * size);
-	notastring = malloc (count * size);
-	if (notastring == NULL)
+	notastring = malloc(count * size);
+	if (!notastring)
 		return (NULL);
-	ft_bzero (notastring, completesize);
+	str = (char *)notastring;
+	if (!str)
+		return (NULL);
+	while (i < completesize)
+		str[i++] = '\0';
 	return (notastring);
 }
 
@@ -49,8 +42,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	j = 0;
 	i = 0;
-	go = ft_calloc ((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
-	if (go == NULL)
+	go = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
+	if (!go)
 		return (free(go), NULL);
 	while (s1[i] != '\0')
 	{
@@ -73,11 +66,11 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == (char) c)
+		if (s[i] == (char)c)
 			return ((char *)&s[i]);
 		i++;
 	}
-	if ((char) c == '\0' && s[i] == '\0')
+	if ((char)c == '\0' && s[i] == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
 }
