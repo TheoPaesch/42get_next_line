@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:59:43 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/12/01 15:10:35 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:01:26 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,33 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*notastring;
 	size_t	completesize;
 	size_t	i;
 	char	*str;
 
 	i = 0;
 	completesize = (count * size);
-	notastring = malloc(count * size);
-	if (notastring == NULL)
-		return (NULL);
-	str = (char *)notastring;
-	if (!str)
+	str = malloc(completesize);
+	if (str == NULL)
 		return (NULL);
 	while (i < completesize)
 		str[i++] = '\0';
-	return (notastring);
+	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
 	char	*go;
 
 	if (s1 == NULL || s2 == NULL)
-		return (NULL);
+		return (free(s1), NULL);
 	j = 0;
 	i = 0;
 	go = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (go == NULL)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i] != '\0')
 	{
 		go[i] = s1[i];
@@ -59,7 +55,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (go);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
@@ -75,17 +71,14 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
-	size_t	lng;
 
-	lng = 0;
 	i = 0;
 	while (str[i] != '\0')
 	{
 		i++;
-		lng++;
 	}
-	return (lng);
+	return (i);
 }
