@@ -6,7 +6,7 @@
 /*   By: tpaesch <tpaesch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 12:02:36 by tpaesch           #+#    #+#             */
-/*   Updated: 2023/11/27 17:26:56 by tpaesch          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:01:19 by tpaesch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 // #include <stdio.h>
 
-char	*fusion(char *s1, char *s2)
+char	*fusion(char *st_buffer, char *read_input)
 {
 	char	*haa;
 
-	haa = ft_strjoin(s1, s2);
+	haa = ft_strjoin(st_buffer, read_input);
 	if (!haa)
-		return (free(haa), free(s1), NULL);
-	if (!s1)
-		return (free(haa), free(s1), NULL);
-	free(s1);
+		return (free(st_buffer), NULL);
+	if (!st_buffer)
+		return (free(haa), NULL);
+	free(st_buffer);
 	return (haa);
 }
 
@@ -64,7 +64,7 @@ char	*line_extraction(char *st_buffer)
 		i++;
 	temp = ft_calloc(i + 1, sizeof(char));
 	if (temp == NULL)
-		return (free(temp), NULL);
+		return (NULL);
 	i = 0;
 	while (st_buffer[i] && st_buffer[i] != '\n')
 	{
@@ -73,37 +73,34 @@ char	*line_extraction(char *st_buffer)
 	}
 	if (st_buffer[i] == '\n')
 		temp[i] = st_buffer[i];
-	i++;
 	return (temp);
 }
 
-char	*de_read_sandstorm(int fd, char *ret)
+char	*de_read_sandstorm(int fd, char *st_buffer)
 {
 	char	read_input[BUFFER_SIZE + 1];
 	ssize_t	bytes_read;
 
-	if (!ret)
+	if (!st_buffer)
 	{
-		ret = ft_calloc(1, 1);
-		if (ret == NULL)
-			return (free(ret), NULL);
+		st_buffer = ft_calloc(1, 1);
+		if (st_buffer == NULL)
+			return (NULL);
 	}
 	bytes_read = read(fd, read_input, BUFFER_SIZE);
 	while (bytes_read > 0)
 	{
 		read_input[bytes_read] = '\0';
-		ret = fusion(ret, read_input);
-		if (!ret)
-			return (free(ret), NULL);
+		st_buffer = fusion(st_buffer, read_input);
+		if (!st_buffer)
+			return (free(st_buffer), NULL);
 		if (ft_strchr(read_input, '\n') || bytes_read == 0)
 			break ;
 		bytes_read = read(fd, read_input, BUFFER_SIZE);
 	}
-	if (bytes_read < 0)
-		return (NULL);
-	if (bytes_read <= 0 && ret[0] == '\0')
-		return (free(ret), NULL);
-	return (ret);
+	if (bytes_read <= 0 && st_buffer[0] == '\0')
+		return (free(st_buffer), NULL);
+	return (st_buffer);
 }
 
 char	*get_next_line(int fd)
@@ -119,7 +116,7 @@ char	*get_next_line(int fd)
 	}
 	st_buffer = de_read_sandstorm(fd, st_buffer);
 	if (!st_buffer)
-		return (free(st_buffer), NULL);
+		return (NULL);
 	line = line_extraction(st_buffer);
 	st_buffer = newline_handeling(st_buffer);
 	return (line);
